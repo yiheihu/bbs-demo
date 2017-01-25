@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bbs.css') }}">
+    {% block css %}{% endblock %}
+
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    {% block script %}
+    {% endblock %}
+
+</head>
+<body>
+    <div id="Top">
+        <nav class="bbs-menu">
+            <a class="nav-link" href="{{url_for('homepage.show', id=1)}}">首页</a>
+            <a class="nav-link" href="{{url_for('user.register_index')}}">注册</a>
+            <a class="nav-link" href="{{url_for('user.login_index')}}">登录</a>
+            <a class="nav-link" href="{{url_for('user.settings')}}">设置</a>
+        </nav>
+    </div>
+
+
+    <div id="Wrapper">
+        <div class="content clearfix">
+            <div id="Rightbar" class="float_right">
+                <div class="sep20"></div>
+                {% block sidebar %}
+                <div class="box">
+                    <div class="cell relative ">
+                        <img class='m-avatar' src="/static/img/avatar/{{user.avatar}}">
+                        <a class='absolute sidebar_username' href="/user/member/{{user.username}}">{{user.username}}</a>
+                    </div>
+                    <div class="cell">
+                        <a href="/topic/new">发布新帖子</a>
+                    </div>
+                </div>
+                <div class="sep20"></div>
+                {% endblock %}
+            </div>
+
+            <div id="Main" >
+                 <div class="sep20"></div>
+                 {% block content %}
+                 {% endblock %}
+            </div>
+        </div>
+        <div class="sep20"></div>
+    </div>
+
+
+    <div id="Bottom">
+        <div class="bbs-bottom-content bbs-content-size">
+            <div class="bbs-bottom-nav">
+                <a href="#">关于</a>
+                <span>&nbsp;·&nbsp;</span>
+                <a href="#">FAQ</a>
+                <span>&nbsp;·&nbsp;</span>
+                <a href="#">鸣谢</a>
+                <span>&nbsp;·&nbsp;</span>
+                <a href="#">7人在线</a>
+            </div>
+            <div class="bbs-bottom-about">
+                创意工作者们的社区<br>World is powered by solitude
+            </div>
+        </div>
+    </div>
+</body>
+</html>

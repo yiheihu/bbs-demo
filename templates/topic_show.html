@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/topic_show.css') }}">
+<style>
+    .cell_right{
+        display: inline-block;
+        margin-left: 10px
+    }
+
+    .del_margin{
+        margin: 0px
+    }
+
+    .sep3 {
+        height: 3px
+    }
+
+    .strong{
+        font-weight: bold
+    }
+</style>
+{% endblock%}
+
+{% block script %}
+<script src="/static/js/topic_show.js"></script>
+{% endblock %}
+
+
+
+{% block title %}
+{{topic.title}}
+{% endblock %}
+
+{% block content %}
+<div class="box">
+    <div class="header over-flow">
+        <img class='b-avatar float_right' src="/static/img/avatar/{{ topic.user.avatar }}">
+        <a href="{{url_for('homepage.show', id=1)}}">首页</a>
+        <span>&nbsp;>&nbsp;</span>
+        <a href="{{ url_for('homepage.show', id=topic.node.id) }}">{{ topic.node.name }}</a>
+        <div class="sep10"></div>
+        <h1>{{ topic.title }}</h1>
+        <div class="sep10"></div>
+        <div class="small">
+            <a href="#">{{ topic.user.username }}</a>
+            <span>·</span>
+            <time>{{ topic.created_time }}</time>
+            <span>·</span>
+            次点击
+            <span>·</span>
+            <a href="{{url_for('.edit', id=topic.id)}}">edit</a>
+        </div>
+    </div>
+    <div class="cell">
+        <p class="topic-content del_margin">{{ topic.content }}</p>
+    </div>
+</div>
+
+<div class="sep20"></div>
+<div class="box">
+    <div class="cell">
+        <span class="small">{{topic.comment_num}}&nbsp;回复</span>
+    </div>
+    {% for c in topic.comments %}
+    <div class="cell over-flow">
+        <img class="m-avatar float_left" src="/static/img/avatar/{{ c.user.avatar }}" >
+        <div class="cell_right">
+            <p class='del_margin small'>
+                <a class="strong" href="/user/member/{{ c.user.username }}">{{ c.user.username }}</a>&nbsp;&nbsp;
+                <span>{{ c.created_time }}</span>
+            </p>
+            <div class="sep3"></div>
+            <p class="comment-content del_margin">{{ c.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="sep20"></div>
+<div class="box">
+    <div class="cell">
+        <span>添加一条新回复</span>
+    </div>
+    <div class="cell">
+        <form class='comment-form' action="{{ url_for('.addComment') }}  " method="post">
+            <input name="topic_id" value="{{ topic.id }}" type="hidden">
+            <textarea name="content"></textarea><br>
+            <button type="submit">回复</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+

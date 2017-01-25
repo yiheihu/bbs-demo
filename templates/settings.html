@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock%}
+{% block script %}
+
+<script>
+        var log = function () {
+            console.log(arguments);
+        }
+        var upload = function (file) {
+            // 要用一个 formdata 对象来装 file
+            var fd = new FormData();
+            fd.append('avatar', file);
+
+            log(fd);
+            $.ajax({
+                url: '/user/settings/avatar',
+                method: 'post',
+                // 上传文件的时候下面这两个选项一定要加上
+                contentType: false,
+                processData: false,
+                data: fd,
+                success: function () {
+                    console.log('上传成功');
+                    alert('上传成功')
+                },
+                error: function () {
+                    console.log('上传失败');
+                    alert('不支持此文件格式')
+                }
+            });
+        };
+
+        $(document).ready(function(){
+            $('#id-button-upload').on('click', function () {
+                var fileTag = $('#id-input-file')[0];
+                var files = fileTag.files;
+                log('fileTag.files', fileTag.files)
+                var numberOfFiles = files.length;
+                log('files.length', files.length)
+                if (numberOfFiles == 0) {
+                    alert('还没有选中文件');
+                } else {
+                    for (var i = 0; i < numberOfFiles; i++) {
+                        var file = files[i];
+                        log('file', file)
+                        console.log('上传的文件: ', file.name);
+                        upload(file);
+                    }
+                }
+            });
+        });
+</script>
+{% endblock %}
+
+
+{% block title %}
+设置
+{% endblock %}
+
+{% block content %}
+<div class="box">
+    <div class="cell">
+        <a href="{{url_for('homepage.show', id=1)}}">首页</a>
+        <span>&nbsp;>&nbsp;</span>
+        <span>设置</span>
+    </div>
+    <div class="cell">
+
+
+    </div>
+</div>
+<div class="sep20"></div>
+<div class="box">
+    <div class="cell">
+        <span>头像上传</span>
+    </div>
+    <div class="cell">
+        <p>当前头像</p>
+        <img class='b-avatar' src="/static/img/avatar/{{ user.avatar}}">
+        <img class='m-avatar' src="/static/img/avatar/{{ user.avatar}}">
+        <p>选择一个图片文件</p>
+        <!--<form action="{{ url_for('user.avatar') }}" enctype="multipart/form-data" method="post" >-->
+        <input id='id-input-file' type="file" multiple name="avatar" required>
+        <button id='id-button-upload' type="submit">开始上传</button>
+        <!--</form>-->
+    </div>
+</div>
+{% endblock %}

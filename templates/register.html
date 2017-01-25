@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+{% endblock%}
+
+{% block title %}
+注册
+{% endblock %}
+
+{% block sidebar %}
+<div class="box">
+    <div class="cell">
+        <span>已注册用户请登录</span>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="box">
+    <div class="cell">
+        <a href="/node/show/1">首页</a>
+        <span>&nbsp;>&nbsp;</span>
+        <span>注册</span>
+    </div>
+    <div class="cell">
+        <form action="{{ url_for('.register') }}" method="POST">
+            <div class="tableRow" >
+                <p>用户名</p>
+                <p><input name="username" placeholder="字数必须等于或大于6"></p>
+            </div>
+            <div class="tableRow">
+                <p>密码</p>
+                <p><input name="password" placeholder="字数必须等于或大于6" type="password"></p>
+            </div>
+            <div class="tableRow">
+                <p>QQ号</p>
+                <p><input name="qq" ></p>
+            </div>
+            <div class="tableRow">
+                <p>emil</p>
+                <p><input name="emil"></p>
+            </div>
+            <div class="tableRow">
+                <p>签名</p>
+                <p><input name="signature"></p>
+            </div>
+            <div class="tableRow">
+                <button type="submit">注册</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

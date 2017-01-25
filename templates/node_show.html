@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{node.name}}
+{% endblock %}
+
+
+
+{% block content %}
+<div class="box">
+    <div class="inner">
+        <nav class="menu">
+            {% for n in n_list %}
+            <a class="nav-node" href="{{ url_for('homepage.show', id=n.id) }}">{{n.name}}</a>
+            {% endfor %}
+        </nav>
+    </div>
+    {% for t in node.topics %}
+    <div class="cell over-flow">
+        <a class='float_left' href= "/user/member/{{t.user.username}}">
+            <img class='m-avatar' src="/static/img/avatar/{{ t.user.avatar }}">
+        </a>
+        <div class="bbs-cell">
+            <div class="item-title">
+                <a class='a-title' href="{{ url_for('topic.show', id=t.id ) }}">
+                    {{ t.title }}
+                </a>
+            </div>
+            <div class="sep5"></div>
+            <span class="small fade">
+                {{ t.node.name }}&nbsp;•&nbsp;
+                <strong>{{ t.user.username }}</strong>&nbsp;•&nbsp;
+                {{ t.created_time }}
+            </span>
+            <div class="comment_num">
+                {{t.comment_num}}
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+

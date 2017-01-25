@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/topic_new.css') }}">
+{% endblock%}
+
+
+
+
+{% block title %}
+    添加主题
+{% endblock %}
+
+{% block sidebar %}
+<div class="box">
+    <div class="cell">
+    <span>发帖提示</span>
+    </div>
+    <div class="inner">
+        <ul>
+            <li>
+                <span>主题标题</span>
+                <div class="sep10"></div>
+                请在标题中描述内容要点。
+                <div class="sep10"></div>
+            </li>
+            <li>
+                <span>正文</span>
+                <div class="sep10"></div>
+                可以在正文中为你要发布的主题添加更多细节。
+                <div class="sep10"></div>
+            </li>
+            <li>
+                <span>选择节点</span>
+                <div class="sep10"></div>
+                在最后，请为你的主题选择一个节点。恰当的归类会让你发布的信息更加有用。
+                你可以在主题发布后 300 秒内，对标题或者正文进行编辑。同时，在 300 秒内，你可以重新为主题选择节点。
+                <div class="sep10"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+<div class="box">
+    <div class="cell">
+        <a href="{{url_for('homepage.show', id=1)}}">首页</a>
+        <span>&nbsp;>&nbsp;</span>
+        创作新主题
+    </div>
+    <form class='add-topic-form' action="{{url_for('.add')}}" method="POST">
+        <div class="cell">
+            主题标题
+        </div>
+        <div class="cell">
+            <textarea name="title" placeholder="标题在200字以内" maxlength="200" rows="1"></textarea>
+        </div>
+        <div class="cell">
+            正文
+        </div>
+        <div class="cell">
+            <textarea id='form-textarea' name="content" placeholder="正文在2000字以内"  maxlength="2000" ></textarea>
+        </div>
+        <div class="cell">
+            <select name="node_id">
+                <option value='1'>技术</option>
+                <option value='2'>Python</option>
+                <option value='3'>JavaScript</option>
+            </select>
+        </div>
+        <div class="cell">
+            <button type="submit">发布主题</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

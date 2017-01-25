@@ -1,0 +1,21 @@
+
+form input {
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    width: 310px;
+}
+
+div.tableRow {
+    text-align: center;
+}
+
+div.tableRow p {
+    display: inline-block;
+}
+
+div.tableRow p:first-child {
+    width : 50px
+}
+
